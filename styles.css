@@ -1,11 +1,18 @@
 body {
     font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    line-height: 1.6;
+    background: #111;
+    color: #eee;
+    margin: 0;
+    padding: 0;
 }
 
-h1, h2 {
-    color: #444;
+.navbar {
+    background: #222;
+    padding: 1rem;
+}
+
+.navbar a {
+    color: #9cf;
+    margin-right: 1.5rem;
+    text-decoration: none;
 }

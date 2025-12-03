@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dev Sandbox – Yutti</title>
+    <meta charset="UTF-8" />
+    <title>Rust Dashboard</title>
 
-    <!-- link to CSS -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="dashboard.js" defer></script>
 </head>
 
 <body>
-
-    <!-- Navigation bar -->
+    <!-- NAV -->
     <nav>
         <a href="/">Home</a>
-        <a href="/about.html">About</a>
-        <a href="/links.html">Links</a>
-        <a href="/rust-dashboard.html">Rust Dashboard</a>
+        <a href="/site/about.html">About</a>
+        <a href="/site/links.html">Links</a>
+        <a class="active">Rust Dashboard</a>
     </nav>
-  
-    <!-- main content -->
-    <h1>welcome to the sh*tshow</h1>
-    <p>testes testes one two three</p>
 
-    <hr>
+    <header>
+        <h1>Rust Event Dashboard</h1>
+        <p>Search & filter through all captured events.</p>
+    </header>
 
-    <h2>Current Goals</h2>
-    <ul>
-        <li>HTML  refresher</li>
-        <li>Add favicon</li>
-        <li>Navigation bar</li>
-        <li>Create a link tree page</li>
-        <li>Create placeholder Rust dashboard</li>
-        <li>interactive CSV table</li>
-    </ul>
+    <!-- FILTERS -->
+    <section id="filters">
+        <input id="search" placeholder="Search anything (event, streamer, location…)" />
+        <select id="categoryFilter">
+            <option value="">All Categories</option>
+        </select>
+        <select id="streamerFilter">
+            <option value="">All Primary Streamers</option>
+        </select>
+        <button id="reset">Reset</button>
+    </section>
+
+    <!-- TABLE -->
+    <table id="results">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Event</th>
+                <th>Activity</th>
+                <th>Primary</th>
+                <th>Involved</th>
+                <th>Location</th>
+                <th>Summary</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
 </body>
 </html>

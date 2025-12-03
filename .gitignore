@@ -1,1 +1,4 @@
-
+*.pyc
+__pycache__/
+data/reorganized_master_v2.xlsx
+data/display_subset_v2.xlsx

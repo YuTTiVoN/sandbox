@@ -1,55 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Rust Dashboard</title>
-
-    <link rel="stylesheet" href="dashboard.css">
-    <script src="dashboard.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Yutti's Dev Sandbox</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
-
 <body>
-    <!-- NAV -->
-    <nav>
-        <a href="/">Home</a>
-        <a href="/site/about.html">About</a>
-        <a href="/site/links.html">Links</a>
-        <a class="active">Rust Dashboard</a>
-    </nav>
 
-    <header>
-        <h1>Rust Event Dashboard</h1>
-        <p>Search & filter through all captured events.</p>
-    </header>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="/index.html" class="active">Home</a>
+    <a href="/about.html">About</a>
+    <a href="/links.html">Links</a>
+    <a href="/dashboard.html">Rust Dashboard</a>
+  </div>
+  <div class="nav-right">
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌑</button>
+  </div>
+</nav>
 
-    <!-- FILTERS -->
-    <section id="filters">
-        <input id="search" placeholder="Search anything (event, streamer, location…)" />
-        <select id="categoryFilter">
-            <option value="">All Categories</option>
-        </select>
-        <select id="streamerFilter">
-            <option value="">All Primary Streamers</option>
-        </select>
-        <button id="reset">Reset</button>
-    </section>
+<header class="hero">
+  <h1>Welcome to the Dev Sandbox</h1>
+  <p>A testing ground for data tools, dashboards, and web experiments.</p>
+</header>
 
-    <!-- TABLE -->
-    <table id="results">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Event</th>
-                <th>Activity</th>
-                <th>Primary</th>
-                <th>Involved</th>
-                <th>Location</th>
-                <th>Summary</th>
-                <th>Timestamp</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+<section class="content">
+  <h2>Current Project: Rust Event Dashboard</h2>
+  <p>
+    This site is where all development and testing for the Rust event-tracking 
+    dashboard happens. New features and data pipelines are actively being built
+    and refined.
+  </p>
+
+  <a class="button" href="/dashboard.html">Go to Dashboard</a>
+</section>
+
+<!-- Dark Mode Script -->
+<script>
+  const btn = document.getElementById("theme-toggle");
+  const root = document.documentElement;
+  btn.addEventListener("click", () => {
+    const dark = root.classList.toggle("dark");
+    localStorage.setItem("darkMode", dark ? "1" : "0");
+  });
+  if (localStorage.getItem("darkMode") === "1") root.classList.add("dark");
+</script>
 
 </body>
 </html>

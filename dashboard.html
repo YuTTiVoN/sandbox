@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Links & Resources</title>
+  <title>Rust Dashboard</title>
+  <link rel="stylesheet" href="/dashboard.css">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -11,8 +12,8 @@
   <div class="nav-left">
     <a href="/index.html">Home</a>
     <a href="/about.html">About</a>
-    <a href="/links.html" class="active">Links</a>
-    <a href="/dashboard.html">Rust Dashboard</a>
+    <a href="/links.html">Links</a>
+    <a href="/dashboard.html" class="active">Rust Dashboard</a>
   </div>
   <div class="nav-right">
     <button id="theme-toggle" aria-label="Toggle dark mode">🌑</button>
@@ -20,16 +21,19 @@
 </nav>
 
 <section class="content">
-  <h1>Useful Links</h1>
+  <h1>Rust Event Dashboard</h1>
 
-  <ul class="link-list">
-    <li><a href="https://rustfacepunch.com">Official Rust Site</a></li>
-    <li><a href="https://github.com/">GitHub</a></li>
-    <li><a href="https://yuttivon.xyz">Main Site</a></li>
-  </ul>
+  <div id="controls">
+    <input id="search" type="text" placeholder="Search anything">
+    <select id="category"><option value="all">All Categories</option></select>
+    <select id="streamer"><option value="all">All Streamers</option></select>
+    <button id="reset">Restart</button>
+  </div>
 
-  <p>TBD - project documentation, references, and Archive specific changes.</p>
+  <div id="results"></div>
 </section>
+
+<script src="/dashboard.js"></script>
 
 <!-- Dark Mode Script -->
 <script>

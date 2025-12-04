@@ -1,31 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>about</title>
-
-    <!-- link to CSS -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
+  <meta charset="UTF-8">
+  <title>About This Project</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
-
 <body>
 
-    <!-- Navigation bar -->
-    <nav>
-        <a href="/">Home</a>
-        <a href="/about.html">About</a>
-        <a href="/links.html">Links</a>
-        <a href="/rust-dashboard.html">Rust Dashboard</a>
-    </nav>
-  
-    <!-- main content -->
-    <h1>about</h1>
-    <p>No notes. lotta questions.</p>
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="/index.html">Home</a>
+    <a href="/about.html" class="active">About</a>
+    <a href="/links.html">Links</a>
+    <a href="/dashboard.html">Rust Dashboard</a>
+  </div>
+  <div class="nav-right">
+    <button id="theme-toggle" aria-label="Toggle dark mode">🌑</button>
+  </div>
+</nav>
+
+<section class="content">
+  <h1>About This Site</h1>
+
+  <p>
+    This sandbox exists to test and develop tools related to Rust Roleplay VOD 
+    indexing, event tracking, and data transformation workflows.
+  </p>
+
+  <p>
+    Several components are in active development, including:
+  </p>
+
+  <ul>
+    <li>Automated data extraction from streamed events</li>
+    <li>Standardized JSON + CSV data pipelines</li>
+    <li>A web-based searchable dashboard</li>
+    <li>Dark mode UI improvements</li>
+    <li>Potential streamer/category icon sets</li>
+  </ul>
+
+  <p>
+    This environment changes constantly — expect chaos, experiments, and half-built features.
+  </p>
+</section>
+
+<!-- Dark Mode Script -->
+<script>
+  const btn = document.getElementById("theme-toggle");
+  const root = document.documentElement;
+  btn.addEventListener("click", () => {
+    const dark = root.classList.toggle("dark");
+    localStorage.setItem("darkMode", dark ? "1" : "0");
+  });
+  if (localStorage.getItem("darkMode") === "1") root.classList.add("dark");
+</script>
 
 </body>
 </html>

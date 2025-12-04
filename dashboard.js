@@ -1,7 +1,20 @@
+// --- Init (wait for DOM+JSON - gptFix #2) ---
+document.addEventListener("DOMContentLoaded", () => {
+
+    fetch("/data/display_subset_v2.json")
+        .then(r => r.json())
+        .then(data => {
+            window.rustEvents = data;
+            populateDropdowns(data);
+            renderResults(data);
+        });
+
+});
+
 // --- Load Data ---
 async function loadData() {
     try {
-        const response = await fetch("./data/display_subset_v2.json");
+        const response = await fetch("/data/display_subset_v2.json");
         if (!response.ok) throw new Error("Failed to load JSON");
         const data = await response.json();
         console.log("Loaded events:", data.length);
@@ -18,94 +31,97 @@ const categorySelect = document.getElementById("category");
 const streamerSelect = document.getElementById("streamer");
 const resultsDiv = document.getElementById("results");
 
-// --- Populate Dropdowns ---
+// --- Populate Dropdowns (gptFix #3) ---
 function populateDropdowns(data) {
-    const categories = new Set();
-    const streamers = new Set();
+  const categorySet = new Set();
+  const streamerSet = new Set();
 
-    data.forEach(item => {
-        if (item.EVENT_CATEGORY) categories.add(item.EVENT_CATEGORY);
-        if (item.PRIMARY_STREAMER) streamers.add(item.PRIMARY_STREAMER);
-    });
+  data.forEach(ev => {
+    if (ev.Event_Category) categorySet.add(ev.Event_Category);
+    if (ev.Primary_Streamer) streamerSet.add(ev.Primary_Streamer);
+  });
 
-    // Sort, then add to category dropdown
-    [...categories].sort().forEach(cat => {
-        const opt = document.createElement("option");
-        opt.value = cat;
-        opt.textContent = cat;
-        categorySelect.appendChild(opt);
-    });
+  const category = document.getElementById("category");
+  const streamer = document.getElementById("streamer");
 
-    // Sort, then add to streamer dropdown
-    [...streamers].sort().forEach(str => {
-        const opt = document.createElement("option");
-        opt.value = str;
-        opt.textContent = str;
-        streamerSelect.appendChild(opt);
-    });
+  categorySet.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    category.appendChild(opt);
+  });
+
+  streamerSet.forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = s;
+    opt.textContent = s;
+    streamer.appendChild(opt);
+  });
 }
 
-// --- Render Results ---
+// --- Render Search Results (gptFix #3) ---
 function renderResults(data) {
-    resultsDiv.innerHTML = "";
+  const resultsDiv = document.getElementById("results");
+  resultsDiv.innerHTML = "";
 
-    if (data.length === 0) {
-        resultsDiv.textContent = "No matching events found.";
-        return;
-    }
+  data.forEach(ev => {
+    const card = document.createElement("div");
+    card.classList.add("event-card");
 
-    data.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "result-item";
+    card.innerHTML = `
+      <div class="event-title">${ev.Summary || "Untitled Event"}</div>
+      <div><strong>Category:</strong> ${ev.Event_Category}</div>
+      <div><strong>Streamer:</strong> ${ev.Primary_Streamer}</div>
+      <div><a href="${ev.VOD_URL}" target="_blank">Watch VOD</a></div>
+    `;
 
-        div.innerHTML = `
-            <h3>${item.SUMMARY || "Untitled Event"}</h3>
-            <p><strong>Category:</strong> ${item.EVENT_CATEGORY || "N/A"}</p>
-            <p><strong>Streamer:</strong> ${item.PRIMARY_STREAMER || "Unknown"}</p>
-            <p><strong>Biome:</strong> ${item.BIOME || "Unknown"}</p>
-            <p><strong>Date:</strong> ${item.DATE || "Unknown"}</p>
-        `;
-
-        resultsDiv.appendChild(div);
-    });
+    resultsDiv.appendChild(card);
+  });
 }
 
-// --- Filtering Logic ---
-function filterData() {
-    let filtered = window.fullData;
+// --- Filtering Logic (gptFix #3) ---
+function filterAll() {
+  const text = document.getElementById("search").value.toLowerCase();
+  const cat = document.getElementById("category").value;
+  const str = document.getElementById("streamer").value;
 
-    const searchTerm = searchInput.value.toLowerCase();
-    const selectedCategory = categorySelect.value;
-    const selectedStreamer = streamerSelect.value;
+  const filtered = window.rustEvents.filter(ev => {
+    const matchesText =
+      ev.Summary?.toLowerCase().includes(text) ||
+      ev.Event_Category?.toLowerCase().includes(text) ||
+      ev.Primary_Streamer?.toLowerCase().includes(text);
 
-    filtered = filtered.filter(item => {
-        const matchesSearch =
-            !searchTerm ||
-            JSON.stringify(item).toLowerCase().includes(searchTerm);
+    const matchesCat = cat === "all" || ev.Event_Category === cat;
+    const matchesStr = str === "all" || ev.Primary_Streamer === str;
 
-        const matchesCategory =
-            selectedCategory === "all" ||
-            item.EVENT_CATEGORY === selectedCategory;
+    return matchesText && matchesCat && matchesStr;
+  });
 
-        const matchesStreamer =
-            selectedStreamer === "all" ||
-            item.PRIMARY_STREAMER === selectedStreamer;
-
-        return matchesSearch && matchesCategory && matchesStreamer;
-    });
-
-    renderResults(filtered);
+  renderResults(filtered);
 }
 
-// --- Reset Filters ---
-document.getElementById("reset").onclick = () => {
-    searchInput.value = "";
-    categorySelect.value = "all";
-    streamerSelect.value = "all";
-    renderResults(window.fullData);
-};
+// --- Reset Filters (gptFix #3) ---
+function filterAll() {
+  const text = document.getElementById("search").value.toLowerCase();
+  const cat = document.getElementById("category").value;
+  const str = document.getElementById("streamer").value;
 
-// --- Init ---
+  const filtered = window.rustEvents.filter(ev => {
+    const matchesText =
+      ev.Summary?.toLowerCase().includes(text) ||
+      ev.Event_Category?.toLowerCase().includes(text) ||
+      ev.Primary_Streamer?.toLowerCase().includes(text);
+
+    const matchesCat = cat === "all" || ev.Event_Category === cat;
+    const matchesStr = str === "all" || ev.Primary_Streamer === str;
+
+    return matchesText && matchesCat && matchesStr;
+  });
+
+  renderResults(filtered);
+}
+
+// --- Init (gptFix #2) ---
 window.addEventListener("DOMContentLoaded", async () => {
     const data = await loadData();
     window.fullData = data;

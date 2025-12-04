@@ -1,63 +1,175 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #111;
-    color: #eee;
-    margin: 0;
-    padding: 0;
+/* ----------------------------------------------------------
+   GLOBAL BASE
+---------------------------------------------------------- */
+:root {
+  --bg: #f5f5f5;
+  --fg: #1e1e1e;
+  --card-bg: #ffffff;
+  --accent: #4aa3ff;
+  --accent-hover: #2e8ae6;
+  --border: #cccccc;
+  --nav-bg: #ffffffaa;
 }
 
+:root.dark {
+  --bg: #121212;
+  --fg: #e8e8e8;
+  --card-bg: #1e1e1e;
+  --accent: #5bb9ff;
+  --accent-hover: #3da4e8;
+  --border: #333333;
+  --nav-bg: #000000aa;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background 0.25s, color 0.25s;
+}
+
+/* ----------------------------------------------------------
+   NAVBAR
+---------------------------------------------------------- */
 .navbar {
-    background: #222;
-    padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background: var(--nav-bg);
+  padding: 12px 18px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1px solid var(--border);
 }
 
-.navbar a {
-    color: #9cf;
-    margin-right: 1.5rem;
-    text-decoration: none;
+.nav-left a {
+  margin-right: 18px;
+  text-decoration: none;
+  color: var(--fg);
+  font-weight: 500;
 }
 
-/* ========================================================= */
-/* BASIC LAYOUT                                              */
-/* ========================================================= */
-
-#dashboard-wrapper {
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 10px;
+.nav-left a:hover {
+  color: var(--accent);
 }
 
-/* ========================================================= */
-/* TABLE STYLING                                             */
-/* ========================================================= */
-#rust-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+.nav-left .active {
+  color: var(--accent);
+  font-weight: 700;
+  border-bottom: 2px solid var(--accent);
 }
 
-#rust-table th {
-    text-align: left;
-    padding: 8px;
-    background: #444;
-    color: #fff;
+#theme-toggle {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.25s;
 }
 
-#rust-table td {
-    padding: 8px;
-    border-bottom: 1px solid #ccc;
+#theme-toggle:hover {
+  background: var(--accent);
+  color: black;
 }
 
-#rust-table tr:nth-child(even) {
-    background: rgba(0,0,0,0.05);
+/* ----------------------------------------------------------
+   LAYOUT + CONTENT
+---------------------------------------------------------- */
+.hero {
+  padding: 40px 25px;
+  text-align: center;
 }
 
-/* ========================================================= */
-/* SEARCH BAR                                                */
-/* ========================================================= */
-#search-bar {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    font-size: 1rem;
+.content {
+  max-width: 900px;
+  margin: auto;
+  padding: 25px;
+}
+
+h1, h2 {
+  margin-top: 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 18px;
+  background: var(--accent);
+  color: black;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--accent-hover);
+}
+
+/* ----------------------------------------------------------
+   DASHBOARD CONTROLS
+---------------------------------------------------------- */
+#controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+#controls input,
+#controls select,
+#controls button {
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--fg);
+  border-radius: 6px;
+}
+
+#controls button {
+  cursor: pointer;
+  background: var(--accent);
+  color: black;
+}
+
+#controls button:hover {
+  background: var(--accent-hover);
+}
+
+/* ----------------------------------------------------------
+   RESULTS
+---------------------------------------------------------- */
+#results {
+  margin-top: 20px;
+}
+
+.event-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.event-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+/* ----------------------------------------------------------
+   MOBILE
+---------------------------------------------------------- */
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-left a {
+    margin-right: 10px;
+  }
 }

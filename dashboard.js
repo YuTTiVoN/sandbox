@@ -1,62 +1,74 @@
-// ============================================================
-// Rust Dashboard - Clean Working Version
-// ============================================================
+//----------------------------------------------------
+// Load JSON + Initialize
+//----------------------------------------------------
+document.addEventListener("DOMContentLoaded", async () => {
+    const data = await loadData();
+    window.rustEvents = data;
 
-// --------- Load JSON Data ---------
+    populateDropdowns(data);
+    renderResults(data);
+
+    wireFilters();
+});
+
 async function loadData() {
     try {
-        const response = await fetch("./data/display_subset_v2.json");
+        const response = await fetch("/data/display_subset_v2.json");
         if (!response.ok) throw new Error("Failed to load JSON");
         const data = await response.json();
         console.log("Loaded events:", data.length);
         return data;
     } catch (err) {
-        console.error("Data Load Error:", err);
+        console.error("Data error:", err);
         return [];
     }
 }
 
-// --------- DOM Elements ---------
+//----------------------------------------------------
+// DOM Elements
+//----------------------------------------------------
 const searchInput = document.getElementById("search");
 const categorySelect = document.getElementById("category");
 const streamerSelect = document.getElementById("streamer");
 const resultsDiv = document.getElementById("results");
 
-// --------- Populate Dropdowns ---------
+//----------------------------------------------------
+// Populate Dropdowns Based on Actual JSON Keys
+//----------------------------------------------------
 function populateDropdowns(data) {
-    const categorySet = new Set();
-    const streamerSet = new Set();
+    const catSet = new Set();
+    const streamSet = new Set();
 
     data.forEach(ev => {
-        if (ev.Event_Category) categorySet.add(ev.Event_Category);
-        if (ev.Primary_Streamer) streamerSet.add(ev.Primary_Streamer);
+        if (ev.event_category) catSet.add(ev.event_category);
+        if (ev.primary_streamer) streamSet.add(ev.primary_streamer);
     });
 
-    // Insert default options
-    categorySelect.innerHTML = `<option value="all">All Categories</option>`;
-    streamerSelect.innerHTML = `<option value="all">All Primary Streamers</option>`;
-
-    categorySet.forEach(c => {
+    // Add category options
+    catSet.forEach(category => {
         const opt = document.createElement("option");
-        opt.value = c;
-        opt.textContent = c;
+        opt.value = category;
+        opt.textContent = category;
         categorySelect.appendChild(opt);
     });
 
-    streamerSet.forEach(s => {
+    // Add streamer options
+    streamSet.forEach(streamer => {
         const opt = document.createElement("option");
-        opt.value = s;
-        opt.textContent = s;
+        opt.value = streamer;
+        opt.textContent = streamer;
         streamerSelect.appendChild(opt);
     });
 }
 
-// --------- Render Results ---------
+//----------------------------------------------------
+// Rendering Cards
+//----------------------------------------------------
 function renderResults(data) {
     resultsDiv.innerHTML = "";
 
     if (!data.length) {
-        resultsDiv.innerHTML = `<p class="no-results">No matching events found.</p>`;
+        resultsDiv.innerHTML = `<div class="no-results">No matching events found.</div>`;
         return;
     }
 
@@ -64,27 +76,21 @@ function renderResults(data) {
         const card = document.createElement("div");
         card.classList.add("event-card");
 
-        const title = ev.Summary || "Untitled Event";
-        const category = ev.Event_Category || "Uncategorized";
-        const streamer = ev.Primary_Streamer || "Unknown";
-        const vod = ev.VOD_URL && ev.VOD_URL.startsWith("http")
-            ? ev.VOD_URL
-            : null;
-
         card.innerHTML = `
-            <div class="event-title">${title}</div>
-            <div><strong>Category:</strong> ${category}</div>
-            <div><strong>Streamer:</strong> ${streamer}</div>
-            <div>
-                ${vod ? `<a href="${vod}" target="_blank">Watch VOD</a>` : `<span class="no-vod">No VOD Available</span>`}
-            </div>
+            <div class="event-title">${ev.summary || "Untitled Event"}</div>
+            <div><strong>Category:</strong> ${ev.event_category || "—"}</div>
+            <div><strong>Activity:</strong> ${ev.activity || "—"}</div>
+            <div><strong>Streamer:</strong> ${ev.primary_streamer || "—"}</div>
+            <div><strong>Location:</strong> ${ev.location_combined || "—"}</div>
         `;
 
         resultsDiv.appendChild(card);
     });
 }
 
-// --------- Filtering Logic ---------
+//----------------------------------------------------
+// Filtering Logic — patched to match JSON keys
+//----------------------------------------------------
 function filterAll() {
     const text = searchInput.value.toLowerCase();
     const cat = categorySelect.value;
@@ -92,12 +98,12 @@ function filterAll() {
 
     const filtered = window.rustEvents.filter(ev => {
         const matchesText =
-            (ev.Summary?.toLowerCase().includes(text)) ||
-            (ev.Event_Category?.toLowerCase().includes(text)) ||
-            (ev.Primary_Streamer?.toLowerCase().includes(text));
+            (ev.summary || "").toLowerCase().includes(text) ||
+            (ev.event_category || "").toLowerCase().includes(text) ||
+            (ev.primary_streamer || "").toLowerCase().includes(text);
 
-        const matchesCat = cat === "all" || ev.Event_Category === cat;
-        const matchesStr = str === "all" || ev.Primary_Streamer === str;
+        const matchesCat = cat === "all" || ev.event_category === cat;
+        const matchesStr = str === "all" || ev.primary_streamer === str;
 
         return matchesText && matchesCat && matchesStr;
     });
@@ -105,27 +111,18 @@ function filterAll() {
     renderResults(filtered);
 }
 
-// --------- Reset Filters ---------
-function resetFilters() {
-    searchInput.value = "";
-    categorySelect.value = "all";
-    streamerSelect.value = "all";
+//----------------------------------------------------
+// Wire up controls
+//----------------------------------------------------
+function wireFilters() {
+    searchInput.addEventListener("input", filterAll);
+    categorySelect.addEventListener("change", filterAll);
+    streamerSelect.addEventListener("change", filterAll);
 
-    renderResults(window.rustEvents);
+    document.getElementById("reset").addEventListener("click", () => {
+        searchInput.value = "";
+        categorySelect.value = "all";
+        streamerSelect.value = "all";
+        renderResults(window.rustEvents);
+    });
 }
-
-// --------- Event Listeners ---------
-searchInput.addEventListener("input", filterAll);
-categorySelect.addEventListener("change", filterAll);
-streamerSelect.addEventListener("change", filterAll);
-
-document.getElementById("reset-btn")?.addEventListener("click", resetFilters);
-
-// --------- Initialize Dashboard ---------
-window.addEventListener("DOMContentLoaded", async () => {
-    const data = await loadData();
-    window.rustEvents = data;
-
-    populateDropdowns(data);
-    renderResults(data);
-});

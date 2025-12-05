@@ -263,3 +263,14 @@ h1, h2 {
 .details-btn:hover {
   background: #444;
 }
+
+/* ----------------------------------------------------------
+    FREEZE SEARCH PANE
+---------------------------------------------------------- */
+.dashboard-controls {
+    position: sticky;
+    top: 60px; /* below navbar */
+    background: var(--bg);
+    padding: 1rem 0;
+    z-index: 5;
+}

@@ -301,10 +301,10 @@ h1, h2 {
     word-wrap: break-word;
 }
 
-#eventsTable th:nth-child(1) { width: auto; }  /* date 80px; */
-#eventsTable th:nth-child(2) { width: auto; }  /* category 120px; */
-#eventsTable th:nth-child(3) { width: auto; }  /* activity 180px; */
-#eventsTable th:nth-child(4) { width: auto; }  /* streamer 120px; */
+#eventsTable th:nth-child(1) { width: 70px; }  /* date 80px; */
+#eventsTable th:nth-child(2) { width: 100px; }  /* category 120px; */
+#eventsTable th:nth-child(3) { width: 180px; }  /* activity 180px; */
+#eventsTable th:nth-child(4) { width: 100px; }  /* streamer 120px; */
 #eventsTable th:nth-child(5) { width: auto; }  /* location 150px; */
 #eventsTable th:nth-child(6) { width: auto; }  /* summary auto; */
 

@@ -269,6 +269,7 @@ h1, h2 {
 ---------------------------------------------------------- */
 .dashboard-controls {
     position: sticky;
+    max-width: 1200px;
     top: 60px; /* below navbar */
     background: var(--bg);
     padding: 1rem 0;
@@ -300,10 +301,10 @@ h1, h2 {
     word-wrap: break-word;
 }
 
-#eventsTable th:nth-child(1) { width: 80px; }   /* date */
-#eventsTable th:nth-child(2) { width: 120px; }  /* category */
-#eventsTable th:nth-child(3) { width: 180px; }  /* activity */
-#eventsTable th:nth-child(4) { width: 120px; }  /* streamer */
-#eventsTable th:nth-child(5) { width: 150px; }  /* location */
-#eventsTable th:nth-child(6) { width: auto; }   /* summary */
+#eventsTable th:nth-child(1) { width: auto; }  /* date 80px; */
+#eventsTable th:nth-child(2) { width: auto; }  /* category 120px; */
+#eventsTable th:nth-child(3) { width: auto; }  /* activity 180px; */
+#eventsTable th:nth-child(4) { width: auto; }  /* streamer 120px; */
+#eventsTable th:nth-child(5) { width: auto; }  /* location 150px; */
+#eventsTable th:nth-child(6) { width: auto; }  /* summary auto; */
 

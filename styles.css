@@ -238,15 +238,15 @@ h1, h2 {
 }
 
 /* ----------------------------------------------------------
-    COLOR OVERRIDES (examples)
+    COLOR OVERRIDES (test examples to change)
 ---------------------------------------------------------- */
 .streamer-Wubby { background: #ff9c44; }
-.streamer-Goopy { background: #3cd6c6; }
-.streamer-Dread { background: #d63e3e; }
+.streamer-Goosey { background: #3cd6c6; }
+.streamer-GEEGA { background: #d63e3e; }
 
-.location-wilderness { background: #7a5e3a; }
-.location-forest { background: #2f6d2f; }
-.location-mansion { background: #555555; }
+.location-BGHQ { background: #7a5e3a; }
+.location-Wilderness { background: #2f6d2f; }
+.location-Snow { background: #555555; }
 
 /* ----------------------------------------------------------
     DETAILS BUTTON
@@ -303,8 +303,8 @@ h1, h2 {
 
 #eventsTable th:nth-child(1) { width: 70px; }  /* date 80px; */
 #eventsTable th:nth-child(2) { width: 100px; }  /* category 120px; */
-#eventsTable th:nth-child(3) { width: 180px; }  /* activity 180px; */
-#eventsTable th:nth-child(4) { width: 100px; }  /* streamer 120px; */
+#eventsTable th:nth-child(3) { width: auto; }  /* activity 180px; */
+#eventsTable th:nth-child(4) { width: 100px; }  /* streamer perspective 120px; */
 #eventsTable th:nth-child(5) { width: auto; }  /* location 150px; */
 #eventsTable th:nth-child(6) { width: auto; }  /* summary auto; */
 

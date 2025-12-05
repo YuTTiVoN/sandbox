@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const data = await loadData();
     window.rustEvents = data;
 
-    populateDropdowns(data);
-    renderResults(data);
+    displayResults(data);
 
     wireFilters();
 });
@@ -33,96 +32,64 @@ const streamerSelect = document.getElementById("streamer");
 const resultsDiv = document.getElementById("results");
 
 //----------------------------------------------------
-// Populate Dropdowns Based on Actual JSON Keys
+// Populate TABLE Based on Actual JSON Keys
 //----------------------------------------------------
-function populateDropdowns(data) {
-    const catSet = new Set();
-    const streamSet = new Set();
+function displayResults(results) {
+    const tbody = document.getElementById("events-body");
+    tbody.innerHTML = "";
 
-    data.forEach(ev => {
-        if (ev.event_category) catSet.add(ev.event_category);
-        if (ev.primary_streamer) streamSet.add(ev.primary_streamer);
-    });
+    results.forEach((event, index) => {
 
-    // Add category options
-    catSet.forEach(category => {
-        const opt = document.createElement("option");
-        opt.value = category;
-        opt.textContent = category;
-        categorySelect.appendChild(opt);
-    });
+        const tr = document.createElement("tr");
 
-    // Add streamer options
-    streamSet.forEach(streamer => {
-        const opt = document.createElement("option");
-        opt.value = streamer;
-        opt.textContent = streamer;
-        streamerSelect.appendChild(opt);
-    });
-}
-
-//----------------------------------------------------
-// Rendering Cards
-//----------------------------------------------------
-function renderResults(data) {
-    resultsDiv.innerHTML = "";
-
-    if (!data.length) {
-        resultsDiv.innerHTML = `<div class="no-results">No matching events found.</div>`;
-        return;
-    }
-
-    data.forEach(ev => {
-        const card = document.createElement("div");
-        card.classList.add("event-card");
-
-        card.innerHTML = `
-            <div class="event-title">${ev.summary || "Untitled Event"}</div>
-            <div><strong>Category:</strong> ${ev.event_category || "—"}</div>
-            <div><strong>Activity:</strong> ${ev.activity || "—"}</div>
-            <div><strong>Streamer:</strong> ${ev.primary_streamer || "—"}</div>
-            <div><strong>Location:</strong> ${ev.location_combined || "—"}</div>
+        tr.innerHTML = `
+            <td>${event.date || ""}</td>
+            <td>${event.event_category || ""}</td>
+            <td>
+              <span class="chip chip-streamer streamer-${event.primary_streamer}">
+                ${event.primary_streamer}
+              </span>
+            </td>
+            <td>
+              <span class="chip chip-location location-${event.location_combined}">
+                ${event.location_combined}
+              </span>
+            </td>
+            <td>${event.summary || ""}</td>
+            <td>
+              <button class="details-btn" data-index="${index}">View</button>
+            </td>
         `;
 
-        resultsDiv.appendChild(card);
-    });
-}
+        tbody.appendChild(tr);
 
-//----------------------------------------------------
-// Filtering Logic — patched to match JSON keys
-//----------------------------------------------------
-function filterAll() {
-    const text = searchInput.value.toLowerCase();
-    const cat = categorySelect.value;
-    const str = streamerSelect.value;
+        /* --- hidden details row --- */
+        const detailsRow = document.createElement("tr");
+        detailsRow.className = "details-row";
+        detailsRow.style.display = "none";
 
-    const filtered = window.rustEvents.filter(ev => {
-        const matchesText =
-            (ev.summary || "").toLowerCase().includes(text) ||
-            (ev.event_category || "").toLowerCase().includes(text) ||
-            (ev.primary_streamer || "").toLowerCase().includes(text);
+        detailsRow.innerHTML = `
+            <td colspan="6" class="details-cell">
+                <strong>Activities:</strong> ${event.activity}<br><br>
+                <strong>Involved Streamers:</strong> ${event.involved_streamers}<br><br>
+                <strong>Raw JSON:</strong><br>
+                <pre>${JSON.stringify(event, null, 2)}</pre>
+            </td>
+        `;
 
-        const matchesCat = cat === "all" || ev.event_category === cat;
-        const matchesStr = str === "all" || ev.primary_streamer === str;
-
-        return matchesText && matchesCat && matchesStr;
+        tbody.appendChild(detailsRow);
     });
 
-    renderResults(filtered);
-}
+    /* --- Attach detail button listeners --- */
+    document.querySelectorAll(".details-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const rowIndex = Number(btn.dataset.index);
+            const details = tbody.querySelectorAll(".details-row")[rowIndex];
+            
+            const isVisible = details.style.display === "table-row";
 
-//----------------------------------------------------
-// Wire up controls
-//----------------------------------------------------
-function wireFilters() {
-    searchInput.addEventListener("input", filterAll);
-    categorySelect.addEventListener("change", filterAll);
-    streamerSelect.addEventListener("change", filterAll);
-
-    document.getElementById("reset").addEventListener("click", () => {
-        searchInput.value = "";
-        categorySelect.value = "all";
-        streamerSelect.value = "all";
-        renderResults(window.rustEvents);
+            details.style.display = isVisible ? "none" : "table-row";
+            btn.textContent = isVisible ? "View" : "Hide";
+        });
     });
 }

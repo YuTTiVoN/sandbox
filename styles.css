@@ -173,3 +173,93 @@ h1, h2 {
     margin-right: 10px;
   }
 }
+
+/* ----------------------------------------------------------
+    TABLE BASE
+---------------------------------------------------------- */
+#events-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1a1a1a;
+  color: #eaeaea;
+  font-size: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#events-table th {
+  background: #222;
+  text-align: left;
+  padding: 12px;
+  font-weight: 600;
+  border-bottom: 2px solid #333;
+}
+
+#events-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #2e2e2e;
+}
+
+#events-table tr:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* ----------------------------------------------------------
+    DETAILS ROW
+---------------------------------------------------------- */
+.details-row {
+  background: #111;
+}
+
+.details-cell {
+  padding: 15px;
+  border-left: 3px solid #444;
+  font-size: 14px;
+}
+
+/* ----------------------------------------------------------
+    CHIPS
+---------------------------------------------------------- */
+.chip {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.chip-streamer {
+  background: #444;
+}
+
+.chip-location {
+  background: #555;
+}
+
+/* ----------------------------------------------------------
+    COLOR OVERRIDES (examples)
+---------------------------------------------------------- */
+.streamer-Wubby { background: #ff9c44; }
+.streamer-Goopy { background: #3cd6c6; }
+.streamer-Dread { background: #d63e3e; }
+
+.location-wilderness { background: #7a5e3a; }
+.location-forest { background: #2f6d2f; }
+.location-mansion { background: #555555; }
+
+/* ----------------------------------------------------------
+    DETAILS BUTTON
+---------------------------------------------------------- */
+.details-btn {
+  cursor: pointer;
+  padding: 4px 10px;
+  background: #333;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #f2f2f2;
+}
+
+.details-btn:hover {
+  background: #444;
+}

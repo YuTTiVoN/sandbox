@@ -40,7 +40,7 @@ function renderTable(events) {
             <td>${event.date}</td>
             <td>${event.event_category}</td>
             <td>${event.activity}</td>
-            <td>${event.primary_streamer}</td>
+            <td>${event.involved_streamers}</td>
             <td>${event.location_combined}</td>
             <td>${event.summary}</td>
         `;

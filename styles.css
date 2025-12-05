@@ -279,7 +279,31 @@ h1, h2 {
     DASH LAYOUT CONTAINER
 ---------------------------------------------------------- */
 .page-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 1rem;
 }
+
+/* ----------------------------------------------------------
+    DASH LAYOUT SETTINGS
+---------------------------------------------------------- */
+#eventsTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#eventsTable th,
+#eventsTable td {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    word-wrap: break-word;
+}
+
+#eventsTable th:nth-child(1) { width: 80px; }   /* date */
+#eventsTable th:nth-child(2) { width: 120px; }  /* category */
+#eventsTable th:nth-child(3) { width: 180px; }  /* activity */
+#eventsTable th:nth-child(4) { width: 120px; }  /* streamer */
+#eventsTable th:nth-child(5) { width: 150px; }  /* location */
+#eventsTable th:nth-child(6) { width: auto; }   /* summary */
+

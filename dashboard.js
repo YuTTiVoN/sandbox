@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const tableBody = document.getElementById("eventsTableBody");
 
     try {
-        const response = await fetch("/main/data/display_subset_v2.json");
+        const response = await fetch("./data/display_subset_v2.json");
         const events = await response.json();
         console.log("Loaded events:", events.length);
 

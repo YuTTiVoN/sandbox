@@ -44,4 +44,16 @@
 
 <script src="dashboard.js"></script>
 </body>
+
+<!-- Dark Mode Script -->
+<script>
+  const btn = document.getElementById("theme-toggle");
+  const root = document.documentElement;
+  btn.addEventListener("click", () => {
+    const dark = root.classList.toggle("dark");
+    localStorage.setItem("darkMode", dark ? "1" : "0");
+  });
+  if (localStorage.getItem("darkMode") === "1") root.classList.add("dark");
+</script>
+
 </html>

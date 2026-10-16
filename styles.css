@@ -12,13 +12,18 @@
 }
 
 :root.dark {
-  --bg: #121212;
-  --fg: #e8e8e8;
-  --card-bg: #1e1e1e;
-  --accent: #5bb9ff;
-  --accent-hover: #3da4e8;
-  --border: #333333;
-  --nav-bg: #000000aa;
+  color-scheme: dark;
+
+  --bg: #191d24;
+  --fg: #e5e7eb;
+  --card-bg: #252b35;
+  --accent: #83c5ff;
+  --accent-hover: #b8e0ff;
+  --border: #414b5a;
+  --nav-bg: #191d24ee;
+
+  --row-odd: #252b35;
+  --row-even: #303744;
 }
 
 html, body {
@@ -277,7 +282,7 @@ h1, h2 {
 }
 
 /* ----------------------------------------------------------
-    DASH LAYOUT CONTAINER
+    DASHBOARD LAYOUT CONTAINER
 ---------------------------------------------------------- */
 .page-container {
     max-width: 1200px;
@@ -286,7 +291,7 @@ h1, h2 {
 }
 
 /* ----------------------------------------------------------
-    DASH LAYOUT SETTINGS
+    DASHBOARD LAYOUT SETTINGS
 ---------------------------------------------------------- */
 #eventsTable {
     width: 100%;
@@ -308,3 +313,72 @@ h1, h2 {
 #eventsTable th:nth-child(5) { width: auto; }  /* location 150px; */
 #eventsTable th:nth-child(6) { width: auto; }  /* summary auto; */
 
+
+
+/* ========================================
+   GLOBAL TYPOGRAPHY & LINKS
+   ======================================== */
+
+body {
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+a:visited {
+  color: #b39ddb;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+/* ========================================
+   ALTERNATING LINK LIST ROWS
+   ======================================== */
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.link-list li {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  overflow-wrap: anywhere;
+}
+
+.link-list li:nth-child(odd) {
+  background: var(--row-odd, #e9edf2);
+}
+
+.link-list li:nth-child(even) {
+  background: var(--row-even, #f5f7fa);
+}
+
+.link-list li + li {
+  border-top: none;
+}
+
+.link-list li:hover {
+  filter: brightness(1.12);
+}
+
+/* Preserve navbar link styling */
+.nav-left a,
+.nav-left a:visited {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.nav-left a:hover,
+.nav-left .active {
+  color: var(--accent);
+}

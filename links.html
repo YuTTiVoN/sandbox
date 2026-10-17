@@ -1,9 +1,10 @@
+<!-- EXTERNAL LINKS & RESOURCES-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" href="/favicon.png">
   <meta charset="UTF-8">
-  <title>Links & Resources</title>
+  <title>Archive Resources</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -35,15 +36,22 @@
   <p>TBD - glossary/sitemap, project docs, citations & references, and Archive changelog.</p>
 </section>
 
-<!-- Dark Mode Script -->
+<!-- Theme Toggle: Dark by Default -->
 <script>
   const btn = document.getElementById("theme-toggle");
   const root = document.documentElement;
+
+  // Default to dark unless user explicitly selected light.
+  const savedTheme = localStorage.getItem("darkMode");
+  const darkByDefault = savedTheme !== "0";
+
+  root.classList.toggle("dark", darkByDefault);
+
+  // Switch themes and remember the preference.
   btn.addEventListener("click", () => {
     const dark = root.classList.toggle("dark");
     localStorage.setItem("darkMode", dark ? "1" : "0");
   });
-  if (localStorage.getItem("darkMode") === "0") root.classList.add("dark");
 </script>
 
 </body>

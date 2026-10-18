@@ -201,7 +201,7 @@ h1, h2 {
 
   /* --- FREEZE HEADERS BELOW SEARCH PANE --- */
   position: sticky;
-  top: 250px; 
+  top: 116px; 
   z-index: 4; /* Sits right beneath search pane (z-index 5) but above scrolling text */
 }
 
@@ -290,7 +290,7 @@ h1, h2 {
     position: sticky;
     width: 100%;
     /*max-width: 1200px; REMOVED*/
-    top: 60px; /* below navbar */
+    top: 120px; /* below navbar */
     background: var(--bg);
     padding: 1rem 0;
     z-index: 5;

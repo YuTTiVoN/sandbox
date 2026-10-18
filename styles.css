@@ -299,18 +299,30 @@ h1, h2 {
     table-layout: fixed;
 }
 
-#eventsTable th,
+/* Update your existing table header selector with these 4 lines */
+#eventsTable th {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    word-wrap: break-word;
+    
+    position: sticky;   /*freezes table header labels*/
+    top: 130px;              /* Adjust this: 60px (navbar) + height of your search pane */
+    z-index: 4;              /* Keeps headers above scrolling text, but below search pane (z-index 5) */
+    background: var(--bg);   /* Matches your background variable so text isn't transparent */
+}
+
+
 #eventsTable td {
     padding: 0.5rem;
     border-bottom: 1px solid var(--border);
     word-wrap: break-word;
 }
 
-#eventsTable th:nth-child(1) { width: 70px; }  /* date 80px; */
-#eventsTable th:nth-child(2) { width: 100px; }  /* category 120px; */
+#eventsTable th:nth-child(1) { width: 60px; }  /* date 80px; */
+#eventsTable th:nth-child(2) { width: 80px; }  /* category 120px; */
 #eventsTable th:nth-child(3) { width: auto; }  /* activity 180px; */
 #eventsTable th:nth-child(4) { width: 100px; }  /* streamer perspective 120px; */
-#eventsTable th:nth-child(5) { width: auto; }  /* location 150px; */
+#eventsTable th:nth-child(5) { width: 150px; }  /* location 150px; */
 #eventsTable th:nth-child(6) { width: auto; }  /* summary auto; */
 
 

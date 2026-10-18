@@ -201,7 +201,7 @@ h1, h2 {
 
   /* --- FREEZE HEADERS BELOW SEARCH PANE --- */
   position: sticky;
-  top: 144px; 
+  top: 166px; 
   z-index: 4; /* Sits right beneath search pane (z-index 5) but above scrolling text */
 }
 
@@ -268,7 +268,7 @@ h1, h2 {
 .location-Snow { background: #555555; }
 
 /* ----------------------------------------------------------
-    DETAILS BUTTON
+    RESET BUTTON
 ---------------------------------------------------------- */
 .details-btn {
   cursor: pointer;

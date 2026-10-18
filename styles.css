@@ -182,30 +182,35 @@ h1, h2 {
 /* ----------------------------------------------------------
     TABLE BASE
 ---------------------------------------------------------- */
-#events-table {
+#eventstable {
   width: 100%;
   border-collapse: collapse;
   background: #1a1a1a;
   color: #eaeaea;
   font-size: 15px;
   border-radius: 8px;
-  overflow: hidden;
+  /* overflow: hidden; REMOVED - breaks sticky: child elements */
+  table-layout: fixed; 
 }
 
-#events-table th {
+#eventstable th {
   background: #222;
   text-align: left;
   padding: 12px;
   font-weight: 600;
   border-bottom: 2px solid #333;
+
+  position: sticky;
+  top: 130px;
+  z-index: 4;
 }
 
-#events-table td {
+#eventstable td {
   padding: 10px 12px;
   border-bottom: 1px solid #2e2e2e;
 }
 
-#events-table tr:hover {
+#eventstable tr:hover {
   background: rgba(255,255,255,0.05);
 }
 
@@ -299,19 +304,7 @@ h1, h2 {
     table-layout: fixed;
 }
 
-/* Update your existing table header selector with these 4 lines */
-#eventsTable th {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--border);
-    word-wrap: break-word;
-    
-    position: sticky;   /*freezes table header labels*/
-    top: 130px;              /* Adjust this: 60px (navbar) + height of your search pane */
-    z-index: 4;              /* Keeps headers above scrolling text, but below search pane (z-index 5) */
-    background: var(--bg);   /* Matches your background variable so text isn't transparent */
-}
-
-
+#eventsTable th,
 #eventsTable td {
     padding: 0.5rem;
     border-bottom: 1px solid var(--border);

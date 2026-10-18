@@ -180,39 +180,48 @@ h1, h2 {
 }
 
 /* ----------------------------------------------------------
-    TABLE BASE
----------------------------------------------------------- */
-#eventstable {
+    UNIFIED TABLE SETTINGS & STICKY HEADERS ----------------------------------------------------------*/
+#eventsTable {
   width: 100%;
   border-collapse: collapse;
   background: #1a1a1a;
   color: #eaeaea;
   font-size: 15px;
   border-radius: 8px;
-  /* overflow: hidden; REMOVED - breaks sticky: child elements */
-  table-layout: fixed; 
+  table-layout: fixed;
 }
 
-#eventstable th {
+#eventsTable th {
   background: #222;
   text-align: left;
-  padding: 12px;
+  padding: 0.5rem;
   font-weight: 600;
   border-bottom: 2px solid #333;
+  word-wrap: break-word;
 
+  /* --- FREEZE HEADERS BELOW SEARCH PANE --- */
   position: sticky;
-  top: 130px;
-  z-index: 4;
+  top: 116px; 
+  z-index: 4; /* Sits right beneath search pane (z-index 5) but above scrolling text */
 }
 
-#eventstable td {
+#eventsTable td {
   padding: 10px 12px;
   border-bottom: 1px solid #2e2e2e;
 }
 
-#eventstable tr:hover {
+#eventsTable tr:hover {
   background: rgba(255,255,255,0.05);
 }
+
+/* Custom Column Width Alignments */
+#eventsTable th:nth-child(1) { width: 60px;} /*date 80px;*/
+#eventsTable th:nth-child(2) { width: 80px;} /*category 120px;*/
+#eventsTable th:nth-child(3) { width: auto;} /*activity 180px;*/
+#eventsTable th:nth-child(4) { width: 100px;} /*perspective 80px;*/
+#eventsTable th:nth-child(5) { width: 150px; } /*location 150px;*/
+#eventsTable th:nth-child(6) { width: auto; } /*summary auto;*/
+
 
 /* ----------------------------------------------------------
     DETAILS ROW
@@ -279,6 +288,7 @@ h1, h2 {
 ---------------------------------------------------------- */
 .dashboard-controls {
     position: sticky;
+    width: 100%;
     max-width: 1200px;
     top: 60px; /* below navbar */
     background: var(--bg);
@@ -294,31 +304,6 @@ h1, h2 {
     margin: 0 auto;
     padding: 1rem;
 }
-
-/* ----------------------------------------------------------
-    DASHBOARD LAYOUT SETTINGS
----------------------------------------------------------- */
-#eventsTable {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-#eventsTable th,
-#eventsTable td {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--border);
-    word-wrap: break-word;
-}
-
-#eventsTable th:nth-child(1) { width: 60px; }  /* date 80px; */
-#eventsTable th:nth-child(2) { width: 80px; }  /* category 120px; */
-#eventsTable th:nth-child(3) { width: auto; }  /* activity 180px; */
-#eventsTable th:nth-child(4) { width: 100px; }  /* streamer perspective 120px; */
-#eventsTable th:nth-child(5) { width: 150px; }  /* location 150px; */
-#eventsTable th:nth-child(6) { width: auto; }  /* summary auto; */
-
-
 
 /* ========================================
    GLOBAL TYPOGRAPHY & LINKS

@@ -299,13 +299,7 @@ h1, h2 {
     table-layout: fixed;
 }
 
-#eventsTable th {
-  position: sticky;
-  top: 0;
-  z-index: 2;         /* Ensures data rows scroll underneath, not over, the header */
-  background-color: #f1f1f1; /* CRITICAL: Must have a background color so text doesn't overlap */
-}
-
+#eventsTable th,
 #eventsTable td {
     padding: 0.5rem;
     border-bottom: 1px solid var(--border);
